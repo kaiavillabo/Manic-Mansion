@@ -36,7 +36,7 @@ class Spillebrett:
             self.screen.blit(self.overlay, (0, 0))
 
             for objekt in self.objekter:
-                objekt.flytt()
-                objekt.tegn(self.screen)
+                objekt.move()
+                objekt.draw(self.screen)
 
             pg.display.update()
