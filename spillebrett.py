@@ -1,6 +1,7 @@
 import pygame as pg
 from constants import *
 from bilder import *
+from ulv import Ulv
 
 
 class Spillebrett:
@@ -10,9 +11,12 @@ class Spillebrett:
         self.screen = pg.display.set_mode(SIZE)
         self.overlay = pg.Surface((WIDTH, HEIGHT), pg.SRCALPHA)
         self.objekter = []
+        self.ulver = []
 
     def leggTilObjekt(self, objekt):
         self.objekter.append(objekt)
+        if isinstance(objekt, Ulv):  # Sjekk om objektet er en ulv
+            self.ulver.append(objekt)
 
     def fjernObjekt(self, objekt):
         self.objekter.remove(objekt)
@@ -35,8 +39,13 @@ class Spillebrett:
 
             self.screen.blit(self.overlay, (0, 0))
 
+            for ulv in self.ulver:
+                ulv.update()  # Nå snur de når de treffer kanten!
+
+        # **Oppdater og tegn alle objekter**
             for objekt in self.objekter:
-                objekt.move()
+                if not isinstance(objekt, Ulv):  # Rodhette og andre objekter
+                    objekt.move()
                 objekt.draw(self.screen)
 
             pg.display.update()

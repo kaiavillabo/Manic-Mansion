@@ -8,3 +8,13 @@ class Ulv(Character):
         super().__init__(x, y, ulv_image)
         self.dx = ULV_SPEED
         self.dy = ULV_SPEED
+
+    def update(self):
+        super().move()
+
+        if self.x <= 0 or self.x >= (WIDTH - self.width):
+            self.dx = -self.dx  
+
+            # Sjekk kollisjon med topp/bunn kant
+        if self.y <= 0 or self.y >= (HEIGHT - self.height):
+            self.dy = -self.dy
