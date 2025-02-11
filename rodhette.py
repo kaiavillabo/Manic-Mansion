@@ -7,6 +7,8 @@ class Rodhette(Character):
     def __init__(self, x, y):
         super().__init__(x, y, rodhette_image)
         self.carry = False
+        self.dead = False
+
 
     def move(self):
         if not self.dead:

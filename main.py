@@ -1,20 +1,25 @@
 import pygame as pg
 from spillebrett import Spillebrett
 from bilder import *
+from character import Character
 from rodhette import Rodhette
 from ulv import Ulv
+from spawnpoint import spawnpoint
 
 pg.init()
 
 brett = Spillebrett()
+koordinater = spawnpoint()
 
 rodhette = Rodhette(25, 327)
-ulv = Ulv(0,0)
-ulv2 = Ulv(100,30)
-ulv3 = Ulv(50, 70)
+ulver = [Ulv(x, y) for x, y in koordinater[:3]]
+
+busker = [Character(x, y, busk_image) for x, y in koordinater[3:]]
+
 brett.leggTilObjekt(rodhette)
-brett.leggTilObjekt(ulv)
-brett.leggTilObjekt(ulv2)
-brett.leggTilObjekt(ulv3)
+for ulv in ulver:
+    brett.leggTilObjekt(ulv)
+for busk in busker:
+    brett.leggTilObjekt(busk)
 
 brett.mainloop()
