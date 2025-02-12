@@ -12,7 +12,7 @@ class Ulv(Character):
     def update(self):
         super().move()
 
-        if self.x <= 0 or self.x >= (WIDTH - self.width):
+        if self.x <= FREEZONE or self.x >= ((WIDTH-FREEZONE) - self.width):
             self.dx = -self.dx  
 
             # Sjekk kollisjon med topp/bunn kant
