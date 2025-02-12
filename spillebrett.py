@@ -2,6 +2,7 @@ import pygame as pg
 from constants import *
 from bilder import *
 from ulv import Ulv
+from busk import Busk
 
 
 class Spillebrett:
@@ -12,11 +13,14 @@ class Spillebrett:
         self.overlay = pg.Surface((WIDTH, HEIGHT), pg.SRCALPHA)
         self.objekter = []
         self.ulver = []
+        self.busker = []
 
     def leggTilObjekt(self, objekt):
         self.objekter.append(objekt)
-        if isinstance(objekt, Ulv):  # Sjekk om objektet er en ulv
+        if isinstance(objekt, Ulv):  # sjekk om objektet er en ulv
             self.ulver.append(objekt)
+        if isinstance(objekt, Busk):  # sjekk om objektet er en busk
+            self.busker.append(objekt)
 
     def fjernObjekt(self, objekt):
         self.objekter.remove(objekt)
@@ -34,15 +38,15 @@ class Spillebrett:
             # lager bakgrunnen med frisonene
             self.screen.blit(bakgrunn, (0,0))
 
+            for ulv in self.ulver:
+                ulv.update(self.busker)  # snur når de treffer kantene og buskene
+
             pg.draw.rect(self.overlay, (0, 0, 0, 128), (0, 0, FREEZONE, HEIGHT))
             pg.draw.rect(self.overlay, (0, 0, 0, 128), (WIDTH - FREEZONE, 0, FREEZONE, HEIGHT))
 
             self.screen.blit(self.overlay, (0, 0))
 
-            for ulv in self.ulver:
-                ulv.update()  # Nå snur de når de treffer kanten!
-
-        # **Oppdater og tegn alle objekter**
+        # Oppdater og tegn alle objekter
             for objekt in self.objekter:
                 if not isinstance(objekt, Ulv):  # Rodhette og andre objekter
                     objekt.move()
