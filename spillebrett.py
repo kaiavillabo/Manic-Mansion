@@ -3,7 +3,7 @@ from constants import *
 from bilder import *
 from ulv import Ulv
 from busk import Busk
-
+from sau import Sau
 
 class Spillebrett:
     def __init__(self):
@@ -14,6 +14,7 @@ class Spillebrett:
         self.objekter = []
         self.ulver = []
         self.busker = []
+        self.sauer = []
 
     def leggTilObjekt(self, objekt):
         self.objekter.append(objekt)
@@ -21,6 +22,8 @@ class Spillebrett:
             self.ulver.append(objekt)
         if isinstance(objekt, Busk):  # sjekk om objektet er en busk
             self.busker.append(objekt)
+        if isinstance(objekt, Sau):  # sjekk om objektet er en sau
+            self.sauer.append(objekt)
 
     def fjernObjekt(self, objekt):
         self.objekter.remove(objekt)
