@@ -11,7 +11,7 @@ pg.init()
 brett = Spillebrett()
 koordinater = spawnpoint()
 
-rodhette = Rodhette(25, 327)
+rodhette = Rodhette(25, 327, brett)
 ulver = [Ulv(x, y) for x, y in koordinater[:3]]
 
 busker = [Busk(x, y) for x, y in koordinater[3:]]
