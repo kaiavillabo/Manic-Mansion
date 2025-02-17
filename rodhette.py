@@ -10,38 +10,44 @@ class Rodhette(Character):
         self.spillebrett = spillebrett
         self.carry = False
         self.dead = False
+        self.carrying_sau = None  # Holder styr på sauen Rødhette bærer
+
+    def get_speed(self):
+        """Returnerer hastigheten basert på om Rødhette bærer en sau eller ikke."""
+        return RODHETTE2_SPEED if self.carry else RODHETTE1_SPEED
 
     def move(self):
         if not self.dead:
             keys_pressed = pg.key.get_pressed()
+            speed = self.get_speed()  # Henter riktig hastighet
 
-            # nye potensielle koordinater
+            # Nye potensielle koordinater
             new_x = self.x
             new_y = self.y
 
             if keys_pressed[pg.K_LEFT]:
-                new_x -= RODHETTE1_SPEED
+                new_x -= speed
             if keys_pressed[pg.K_RIGHT]:
-                new_x += RODHETTE1_SPEED
+                new_x += speed
             if keys_pressed[pg.K_DOWN]:
-                new_y += RODHETTE1_SPEED
+                new_y += speed
             if keys_pressed[pg.K_UP]:
-                new_y -= RODHETTE1_SPEED
+                new_y -= speed
 
-            # sjekker om hun går utenfor skjermen
+            # Sjekk om hun går utenfor skjermen
             if 0 <= new_x <= WIDTH - self.width and 0 <= new_y <= HEIGHT - self.height:
-                # Sjekk om hun kolliderer med en busk
                 if not self.kolliderer_med_busker(new_x, new_y):
                     self.x = new_x
                     self.y = new_y
 
-            if not self.carry:  # kan kun plukke opp en sau om hun ikke allerede bærer en
+            # Plukk opp sau hvis hun ikke allerede bærer en
+            if not self.carry:
                 for sau in self.spillebrett.sauer:
                     if self.kolliderer_med_sau(sau, self.x, self.y):
                         self.pick_up(sau)
-                        break  # stopper etter å ha plukket opp en sau
+                        break  # Stopper etter å ha plukket opp en sau
 
-            # sjekker om rødhette har nådd frisonen med en sau
+            # Slipp sau i frisonen
             if self.carry and self.x <= FREEZONE:
                 self.drop_sau()
 
