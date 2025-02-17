@@ -11,6 +11,7 @@ class Rodhette(Character):
         self.carry = False
         self.dead = False
         self.carrying_sau = None
+        self.sauer_reddet = 0
 
     def get_speed(self):
         # returnerer hastigheten basert på om Rødhette bærer en sau eller ikke.
@@ -104,3 +105,11 @@ class Rodhette(Character):
             self.carrying_sau.x = 25  # setter ny x-posisjon i frisonen, samme y
             self.carry = False
             self.carrying_sau = None
+            self.sauer_reddet += 1
+
+        if self.sauer_reddet == 3:
+            self.spillebrett.vinn_spill()
+
+    # def die(self):
+    #     self.dead = True
+    #     self.spillebrett.game_over()

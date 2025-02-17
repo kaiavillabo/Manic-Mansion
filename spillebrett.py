@@ -47,6 +47,18 @@ class Spillebrett:
         pg.time.delay(3000)
         pg.quit()
         exit()
+    
+    def vinn_spill(self):
+        self.screen.blit(firework_image, (262, 102))  
+        font = pg.font.Font(None, 100)
+        tekst = font.render("DU VANT!", True, BLACK)
+        tekst_rect = tekst.get_rect(center=(WIDTH // 2, HEIGHT // 2))
+        self.screen.blit(tekst, tekst_rect)
+        pg.display.update()
+
+        pg.time.delay(3000)
+        pg.quit()
+        exit()
 
     def game_over(self):
         self.rodhette.dead = True
