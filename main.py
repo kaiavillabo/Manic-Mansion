@@ -1,5 +1,6 @@
 import pygame as pg
 from bilder import *
+from character import Character
 from rodhette import Rodhette
 from ulv import Ulv
 from busk import Busk
@@ -26,10 +27,13 @@ sau3 = Sau(WIDTH-75, 477)
 sauer = [sau1, sau2, sau3]
 
 brett.leggTilObjekt(rodhette)
+
 for ulv in ulver:
     brett.leggTilObjekt(ulv)
+
 for busk in busker:
     brett.leggTilObjekt(busk)
+
 for sau in sauer:
     brett.leggTilObjekt(sau)
 
