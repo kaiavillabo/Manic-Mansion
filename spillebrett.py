@@ -72,6 +72,10 @@ class Spillebrett:
                 if event.type == pg.QUIT:
                     self.running = False
 
+                if event.type == pg.KEYDOWN and event.key == pg.K_b:
+                    for ulv in self.ulver:
+                        ulv.toggle_bestemor()
+
             self.clock.tick(FPS)
 
             # Lager bakgrunnen med frisonene

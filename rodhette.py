@@ -11,7 +11,8 @@ class Rodhette(Character):
         self.carry = False
         self.dead = False
         self.carrying_sau = None
-        self.sauer_reddet = 0
+        self.sauer_levert = 0
+        self.leverte_sauer = set()
 
     def get_speed(self):
         # returnerer hastigheten basert på om Rødhette bærer en sau eller ikke.
@@ -51,9 +52,9 @@ class Rodhette(Character):
         # plukk opp sau hvis hun ikke allerede bærer en
         if not self.carry:
             for sau in self.spillebrett.sauer:
-                if self.kolliderer_med_sau(sau, self.x, self.y):
+                if self.kolliderer_med_sau(sau, self.x, self.y) and sau not in self.leverte_sauer:
                     self.pick_up(sau)
-                    break  # Stopper etter å ha plukket opp en sau
+                    break  
 
         # slipp sau i frisonen
         if self.carry and self.x <= FREEZONE:
@@ -102,12 +103,17 @@ class Rodhette(Character):
 
     def drop_sau(self):
         if self.carrying_sau:
-            self.carrying_sau.x = 25  # setter ny x-posisjon i frisonen, samme y
+            # sjekk at sauen ikke allerede er levert
+            if self.carrying_sau not in self.leverte_sauer:
+                self.sauer_levert += 1
+                self.leverte_sauer.add(self.carrying_sau)  # registrer at sauen er levert
+                print(f"Sau levert! Totalt levert: {self.sauer_levert}")  # debug
+
+            self.carrying_sau.x = 25  # plasser sauen i frisonen
             self.carry = False
             self.carrying_sau = None
-            self.sauer_reddet += 1
 
-        if self.sauer_reddet == 3:
+        if self.sauer_levert == 3:
             self.spillebrett.vinn_spill()
 
     # def die(self):
