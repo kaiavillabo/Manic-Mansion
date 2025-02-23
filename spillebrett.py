@@ -5,7 +5,6 @@ from ulv import Ulv
 from busk import Busk
 from sau import Sau
 from rodhette import Rodhette
-from character import Character
 
 class Spillebrett:
     def __init__(self):

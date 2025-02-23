@@ -1,6 +1,5 @@
 import pygame as pg
 from bilder import *
-from character import Character
 from rodhette import Rodhette
 from ulv import Ulv
 from busk import Busk

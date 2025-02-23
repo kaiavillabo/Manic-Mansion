@@ -1,4 +1,3 @@
-import pygame as pg
 from constants import *
 from bilder import *
 from character import Character
